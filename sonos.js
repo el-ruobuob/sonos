@@ -7,6 +7,9 @@ exports.action = function(data, callback, config, SARAH){
   request = require('request');
 
 if (data.idPiece == '' || data.idPiece == undefined) {
+  if (data.client == undefined) {
+      data.client = 'SARAH1';
+  }
   data.idPiece = data.client;
 }
 
@@ -325,43 +328,47 @@ function callBackToSonos(message, lieu) {
 				      Seek('REL_TIME', position.reltime, function() {
 					if (statusbefore != 'STOPPED' && statusbefore != 'PAUSED_PLAYBACK') {
 					  Play(function() {
-					    for (i in speaks) {
+					    for (i=speaks.length;i>0;i--) {
 					      RemoveTrackFromQueue(tracknumbertemp, function() {
-						fs.exists('plugins/Sonos/'+speaks[i][0]+'.wav', function(exists) {
+						fs.exists('plugins/Sonos/'+speaks[i-1][0]+'.wav', function(exists) {
 						  if (exists) {
-						    fs.unlinkSync('plugins/Sonos/'+speaks[i][0]+'.wav');
-						    speaks.shift();
+						    fs.unlinkSync('plugins/Sonos/'+speaks[i-1][0]+'.wav');
+						    speaks.pop();
+						    if (speaks.length == 0) {
+						      console.log('liberation');
+						    }
 						  } else {
-						    speaks.shift();
+						    speaks.pop();
+						    if (speaks.length == 0) {
+						      console.log('liberation');
+						    }
 						  }
 						});
-						speaks.shift();
-						if (speaks.length == 0) {
-						  console.log('liberation');
-						  return;
-						}
 					      });
 					    }
+					    return;
 					  });
 					}
 					else {
-					  for (i in speaks) {
+					  for (i=speaks.length;i>0;i--) {
 					    RemoveTrackFromQueue(tracknumbertemp, function() {
-					      fs.exists('plugins/Sonos/'+speaks[i][0]+'.wav', function(exists) {
+					      fs.exists('plugins/Sonos/'+speaks[i-1][0]+'.wav', function(exists) {
 						if (exists) {
-						  fs.unlinkSync('plugins/Sonos/'+speaks[i][0]+'.wav');
+						  fs.unlinkSync('plugins/Sonos/'+speaks[i-1][0]+'.wav');
 						  speaks.shift();
+						  if (speaks.length == 0) {
+						    console.log('liberation');
+						  }
 						} else {
 						  speaks.shift();
+						  if (speaks.length == 0) {
+						    console.log('liberation');
+						  }
 						}
 					      });
-					      speaks.shift();
-					      if (speaks.length == 0) {
-						console.log('liberation');
-						return;
-					      }
 					    });
 					  }
+					  return;
 					}
 				      });  
 				    });  
@@ -376,47 +383,52 @@ function callBackToSonos(message, lieu) {
 				Play(function() {
 				speaking = true;
 				  waitTheEndPlay(function() {
-				  speaking = false;
+				    speaking = false;
 				    speaked = 0;
 				    setVolume(volumeinit, function () {
 				      SetQueue(position.trackuri, function() {
 					if (statusbefore != 'STOPPED' && statusbefore != 'PAUSED_PLAYBACK') {
 					  Play(function() {
-					    for (i in speaks) {
+					    for (i=speaks.length;i>0;i--) {
 					      RemoveTrackFromQueue(tracknumbertemp, function() {
-						fs.exists('plugins/Sonos/'+speaks[i][0]+'.wav', function(exists) {
+						fs.exists('plugins/Sonos/'+speaks[i-1][0]+'.wav', function(exists) {
 						  if (exists) {
-						    fs.unlinkSync('plugins/Sonos/'+speaks[i][0]+'.wav');
+						    fs.unlinkSync('plugins/Sonos/'+speaks[i-1][0]+'.wav');
 						    speaks.shift();
+						    if (speaks.length == 0) {
+						      console.log('liberation');
+						    }
 						  } else {
 						    speaks.shift();
+						    if (speaks.length == 0) {
+						      console.log('liberation');
+						    }
 						  }
 						});
-						if (speaks.length == 0) {
-						  console.log('liberation');
-						  return;
-						}
 					      });
 					    }
+					    return;
 					  });
 					} else {
-					  for (i in speaks) {
+					  for (i=speaks.length;i>0;i--) {
 					    RemoveTrackFromQueue(tracknumbertemp, function() {
-					      fs.exists('plugins/Sonos/'+speaks[i][0]+'.wav', function(exists) {
+					      fs.exists('plugins/Sonos/'+speaks[i-1][0]+'.wav', function(exists) {
 						if (exists) {
-						  fs.unlinkSync('plugins/Sonos/'+speaks[i][0]+'.wav');
+						  fs.unlinkSync('plugins/Sonos/'+speaks[i-1][0]+'.wav');
 						  speaks.shift();
+						  if (speaks.length == 0) {
+						    console.log('liberation');
+						  }
 						} else {
 						  speaks.shift();
+						  if (speaks.length == 0) {
+						    console.log('liberation');
+						  }
 						}
 					      });
-					      speaks.shift;
-					      if (speaks.length == 0) {
-						console.log('liberation');
-						return;
-					      }
 					    });
 					  }
+					  return;
 					}
 				      });
 				    });
@@ -709,8 +721,8 @@ exports.init = function(SARAH){
         mytts = tts.replace('[name]', '');
         SARAH.run('sonos',  { 'actionSonos' : 'callBackToSonos' , 'tts' : mytts, 'client': SARAH.context.last.options.client, 'idPiece': SARAH.context.last.options.idPiece });
       }
-      //tts = '';
-      //return;
+      tts = '';
+      return;
     }
    }
  }
