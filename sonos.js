@@ -328,45 +328,33 @@ function callBackToSonos(message, lieu) {
 				      Seek('REL_TIME', position.reltime, function() {
 					if (statusbefore != 'STOPPED' && statusbefore != 'PAUSED_PLAYBACK') {
 					  Play(function() {
-					    for (i=speaks.length;i>0;i--) {
+					    for (i in speaks) {
 					      RemoveTrackFromQueue(tracknumbertemp, function() {
-						fs.exists('plugins/Sonos/'+speaks[i-1][0]+'.wav', function(exists) {
-						  if (exists) {
-						    fs.unlinkSync('plugins/Sonos/'+speaks[i-1][0]+'.wav');
-						    speaks.pop();
-						    if (speaks.length == 0) {
-						      console.log('liberation');
-						    }
-						  } else {
-						    speaks.pop();
-						    if (speaks.length == 0) {
-						      console.log('liberation');
-						    }
-						  }
-						});
+						clearTimeout(clear);
+						var clear = setTimeout(function() {
+						  speaks = [];
+						}, 3000);
 					      });
+					      fs.unlinkSync('plugins/Sonos/'+speaks[i][0]+'.wav');
+					      if (speaks.length == 0) {
+						console.log('liberation');
+					      }
 					    }
 					    return;
 					  });
 					}
 					else {
-					  for (i=speaks.length;i>0;i--) {
+					  for (i in speaks) {
 					    RemoveTrackFromQueue(tracknumbertemp, function() {
-					      fs.exists('plugins/Sonos/'+speaks[i-1][0]+'.wav', function(exists) {
-						if (exists) {
-						  fs.unlinkSync('plugins/Sonos/'+speaks[i-1][0]+'.wav');
-						  speaks.pop();
-						  if (speaks.length == 0) {
-						    console.log('liberation');
-						  }
-						} else {
-						  speaks.pop();
-						  if (speaks.length == 0) {
-						    console.log('liberation');
-						  }
-						}
-					      });
+						clearTimeout(clear);
+						var clear = setTimeout(function() {
+						  speaks = [];
+						}, 3000);
 					    });
+					    fs.unlinkSync('plugins/Sonos/'+speaks[i][0]+'.wav');
+					    if (speaks.length == 0) {
+					      console.log('liberation');
+					    }
 					  }
 					  return;
 					}
@@ -389,44 +377,32 @@ function callBackToSonos(message, lieu) {
 				      SetQueue(position.trackuri, function() {
 					if (statusbefore != 'STOPPED' && statusbefore != 'PAUSED_PLAYBACK') {
 					  Play(function() {
-					    for (i=speaks.length;i>0;i--) {
+					    for (i in speaks) {
 					      RemoveTrackFromQueue(tracknumbertemp, function() {
-						fs.exists('plugins/Sonos/'+speaks[i-1][0]+'.wav', function(exists) {
-						  if (exists) {
-						    fs.unlinkSync('plugins/Sonos/'+speaks[i-1][0]+'.wav');
-						    speaks.pop();
-						    if (speaks.length == 0) {
-						      console.log('liberation');
-						    }
-						  } else {
-						    speaks.pop();
-						    if (speaks.length == 0) {
-						      console.log('liberation');
-						    }
-						  }
-						});
+						clearTimeout(clear);
+						var clear = setTimeout(function() {
+						  speaks = [];
+						}, 3000);
 					      });
+					      fs.unlinkSync('plugins/Sonos/'+speaks[i][0]+'.wav');
+					      if (speaks.length == 0) {
+						console.log('liberation');
+					      }
 					    }
 					    return;
 					  });
 					} else {
-					  for (i=speaks.length;i>0;i--) {
+					  for (i in speaks) {
 					    RemoveTrackFromQueue(tracknumbertemp, function() {
-					      fs.exists('plugins/Sonos/'+speaks[i-1][0]+'.wav', function(exists) {
-						if (exists) {
-						  fs.unlinkSync('plugins/Sonos/'+speaks[i-1][0]+'.wav');
-						  speaks.pop();
-						  if (speaks.length == 0) {
-						    console.log('liberation');
-						  }
-						} else {
-						  speaks.pop();
-						  if (speaks.length == 0) {
-						    console.log('liberation');
-						  }
-						}
-					      });
+						clearTimeout(clear);
+						var clear = setTimeout(function() {
+						  speaks = [];
+						}, 3000);
 					    });
+					    fs.unlinkSync('plugins/Sonos/'+speaks[i][0]+'.wav');
+					    if (speaks.length == 0) {
+					      console.log('liberation');
+					    }
 					  }
 					  return;
 					}
