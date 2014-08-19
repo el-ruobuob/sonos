@@ -7,7 +7,7 @@ exports.action = function(data, callback, config, SARAH){
   request = require('request');
 
 if (data.idPiece == '' || data.idPiece == undefined) {
-  data.idPiece = 'SALON';
+  data.idPiece = data.client;
 }
 
 if (data.actionSonos != 'saveConfig') {
