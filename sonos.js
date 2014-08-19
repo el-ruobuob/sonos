@@ -282,6 +282,7 @@ function callBackToSonos(message, lieu) {
 //   } else {
 //     timeout = 10;
 //   }
+  console.log(timeout);
   setTimeout(function() {
     child = exec('cd plugins/sonos & ttstowav.vbs "'+message+'" "'+speakUUID+'"',
       function (error, stdout, stderr) {
@@ -329,12 +330,12 @@ function callBackToSonos(message, lieu) {
 						fs.exists('plugins/Sonos/'+speaks[i][0]+'.wav', function(exists) {
 						  if (exists) {
 						    fs.unlinkSync('plugins/Sonos/'+speaks[i][0]+'.wav');
-						    speaks.shift;
+						    speaks.shift();
 						  } else {
-						    speaks.shift;
+						    speaks.shift();
 						  }
 						});
-						speaks.shift;
+						speaks.shift();
 						if (speaks.length == 0) {
 						  console.log('liberation');
 						  return;
@@ -349,12 +350,12 @@ function callBackToSonos(message, lieu) {
 					      fs.exists('plugins/Sonos/'+speaks[i][0]+'.wav', function(exists) {
 						if (exists) {
 						  fs.unlinkSync('plugins/Sonos/'+speaks[i][0]+'.wav');
-						  speaks.shift;
+						  speaks.shift();
 						} else {
-						  speaks.shift;
+						  speaks.shift();
 						}
 					      });
-					      speaks.shift;
+					      speaks.shift();
 					      if (speaks.length == 0) {
 						console.log('liberation');
 						return;
@@ -386,9 +387,9 @@ function callBackToSonos(message, lieu) {
 						fs.exists('plugins/Sonos/'+speaks[i][0]+'.wav', function(exists) {
 						  if (exists) {
 						    fs.unlinkSync('plugins/Sonos/'+speaks[i][0]+'.wav');
-						    speaks.shift;
+						    speaks.shift();
 						  } else {
-						    speaks.shift;
+						    speaks.shift();
 						  }
 						});
 						if (speaks.length == 0) {
@@ -404,9 +405,9 @@ function callBackToSonos(message, lieu) {
 					      fs.exists('plugins/Sonos/'+speaks[i][0]+'.wav', function(exists) {
 						if (exists) {
 						  fs.unlinkSync('plugins/Sonos/'+speaks[i][0]+'.wav');
-						  speaks.shift;
+						  speaks.shift();
 						} else {
-						  speaks.shift;
+						  speaks.shift();
 						}
 					      });
 					      speaks.shift;
@@ -706,8 +707,7 @@ exports.init = function(SARAH){
     exports.speak = function(tts, async, SARAH){
       if (tts != '' && async == false) {
         mytts = tts.replace('[name]', '');
-        SARAH.run('sonos',  { 'actionSonos' : 'callBackToSonos' , 'tts' : mytts, 'client': SARAH.context.last.options.client, 'idPiece': 'SALON' });
-        //SARAH.run('sonos',  { 'actionSonos' : 'callBackToSonos' , 'tts' : mytts, 'client': SARAH.context.last.options.client, 'idPiece': SARAH.context.last.options.idPiece });
+        SARAH.run('sonos',  { 'actionSonos' : 'callBackToSonos' , 'tts' : mytts, 'client': SARAH.context.last.options.client, 'idPiece': SARAH.context.last.options.idPiece });
       }
       //tts = '';
       //return;
