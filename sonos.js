@@ -355,12 +355,12 @@ function callBackToSonos(message, lieu) {
 					      fs.exists('plugins/Sonos/'+speaks[i-1][0]+'.wav', function(exists) {
 						if (exists) {
 						  fs.unlinkSync('plugins/Sonos/'+speaks[i-1][0]+'.wav');
-						  speaks.shift();
+						  speaks.pop();
 						  if (speaks.length == 0) {
 						    console.log('liberation');
 						  }
 						} else {
-						  speaks.shift();
+						  speaks.pop();
 						  if (speaks.length == 0) {
 						    console.log('liberation');
 						  }
@@ -394,12 +394,12 @@ function callBackToSonos(message, lieu) {
 						fs.exists('plugins/Sonos/'+speaks[i-1][0]+'.wav', function(exists) {
 						  if (exists) {
 						    fs.unlinkSync('plugins/Sonos/'+speaks[i-1][0]+'.wav');
-						    speaks.shift();
+						    speaks.pop();
 						    if (speaks.length == 0) {
 						      console.log('liberation');
 						    }
 						  } else {
-						    speaks.shift();
+						    speaks.pop();
 						    if (speaks.length == 0) {
 						      console.log('liberation');
 						    }
@@ -415,12 +415,12 @@ function callBackToSonos(message, lieu) {
 					      fs.exists('plugins/Sonos/'+speaks[i-1][0]+'.wav', function(exists) {
 						if (exists) {
 						  fs.unlinkSync('plugins/Sonos/'+speaks[i-1][0]+'.wav');
-						  speaks.shift();
+						  speaks.pop();
 						  if (speaks.length == 0) {
 						    console.log('liberation');
 						  }
 						} else {
-						  speaks.shift();
+						  speaks.pop();
 						  if (speaks.length == 0) {
 						    console.log('liberation');
 						  }
